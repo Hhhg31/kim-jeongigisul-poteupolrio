@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "김선문 | 전기기술 포트폴리오"
+description = "전기기술사를 목표로 전자공학 진학을 준비하는 김선문의 실제 프로젝트와 활동을 담은 반응형 정적 포트폴리오입니다."
+version = "1.0.0"
+id = "artifacts/kim-seonmun-portfolio"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19981
+
+[services.development]
+run = "pnpm --filter @workspace/kim-seonmun-portfolio run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/kim-seonmun-portfolio", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/kim-seonmun-portfolio/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19981"
+BASE_PATH = "/"
